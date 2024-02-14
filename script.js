@@ -2,6 +2,7 @@ var sizeTbl;
 var absKey;
 var relKey;
 var absSum = 0;
+var nameKey;
 
 function createTbl() {
     var table = document.getElementById("counterTbl");
@@ -14,16 +15,16 @@ function createTbl() {
             if(i == 0) {
                 if(j == 0) cell.style = "background-color: darkgray;";
                 else if(j > 0 && j <= sizeTbl) {
-                    cell.style = "font-weight: bold; background-color: darkgray;";
+                    cell.style = "font-weight: bold; background-color: darkgray; color: white;";
                     cell.innerHTML = "Taste " + j;
                 }
                 else if(j == parseInt(sizeTbl) + 1) {
-                    cell.style = "font-weight: bold; background-color: darkgray;";
+                    cell.style = "font-weight: bold; background-color: darkgray; color: white;";
                     cell.innerHTML = "Summe";
                 }
             }
             else if(i > 0 && j == 0) {
-                cell.style = "font-weight: bold; background-color: darkgray;";
+                cell.style = "font-weight: bold; background-color: darkgray; color: white;";
                 if(i == 1) cell.innerHTML = "Absolut";
                 else if(i == 2) cell.innerHTML = "Relativ";
             }
@@ -55,7 +56,6 @@ function countKey(key) {
 
 function writeKeys() {
     var table = document.getElementById("counterTbl");
-    var cell;
     for(var i = 1; i <= 2; i++) {
         for(var j = 1; j <= parseInt(sizeTbl) + 1; j++) {
             if(i == 1) {
@@ -68,6 +68,7 @@ function writeKeys() {
             }
         }
     }
+    chart();
     if(table.rows[1].cells[parseInt(sizeTbl) + 1].innerText == 100) alert("Summe von 100 erreicht!");
 }
 
@@ -78,7 +79,12 @@ function sizeSubmit() {
     else {
         absKey = new Array(parseInt(sizeTbl) + 1).fill(0);
         relKey = new Array(parseInt(sizeTbl) + 1).fill(0);
+        nameKey = new Array(parseInt(sizeTbl) + 1).fill(0);
+        for(var i = 1; i < parseInt(sizeTbl) + 1; i++) {
+            nameKey[i] = "Taste " + i;
+        }
         absSum = 0;
         createTbl();
+        resetChart();
     }
 }
