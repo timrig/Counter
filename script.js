@@ -59,7 +59,9 @@ function writeKeys() {
     for(var i = 1; i <= 2; i++) {
         for(var j = 1; j <= parseInt(sizeTbl) + 1; j++) {
             if(i == 1) {
-                if(j == parseInt(sizeTbl) + 1) table.rows[i].cells[j].innerHTML = absSum;
+                if(j == parseInt(sizeTbl) + 1) {
+                    table.rows[i].cells[j].innerHTML = absSum;
+                }
                 else table.rows[i].cells[j].innerHTML = absKey[j];
             }
             else if(i == 2) {
@@ -69,7 +71,9 @@ function writeKeys() {
         }
     }
     chart();
-    if(table.rows[1].cells[parseInt(sizeTbl) + 1].innerText == 100) alert("Summe von 100 erreicht!");
+    if(absSum > 95 && absSum < 99) beep1();
+    if(absSum == 99) beep2();
+    if(absSum == 100) alert("Summe von 100 erreicht!");
 }
 
 function sizeSubmit() {
@@ -88,3 +92,12 @@ function sizeSubmit() {
         resetChart();
     }
 }
+
+function beep1(){ 
+    var audio = new Audio("https://audio-previews.elements.envatousercontent.com/files/177328289/preview.mp3"); 
+    audio.play(); 
+}
+function beep2(){ 
+    var audio = new Audio("https://orangefreesounds.com/wp-content/uploads/2023/04/Quick-beep-sound-effect.mp3"); 
+    audio.play(); 
+} 
