@@ -1,3 +1,5 @@
+document.getElementById("showInfo").style.display="none";
+
 if(localStorage.getItem("sizeTbl") > 0) sizeTbl = localStorage.getItem("sizeTbl");
 else sizeTbl = 3;
 

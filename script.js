@@ -3,6 +3,9 @@ var absKey;
 var relKey;
 var absSum = 0;
 var nameKey;
+var timer = 0;
+var checkReset = false;
+var checkSum = false;
 
 function createTbl() {
     var table = document.getElementById("counterTbl");
@@ -42,7 +45,15 @@ function clearTbl(tbl) {
 }
 
 document.addEventListener("keydown", function(event) {
-    if(event.key > 0 && event.key <= sizeTbl) countKey(event.key);
+    if(event.key > 0 && event.key <= sizeTbl && checkReset == false && checkSum == false) countKey(event.key);
+    if(event.key == "-") reset(event.key);
+    if(event.key == 'Enter' && checkReset == true) reset(event.key);
+    if(event.key == "End" && checkReset == true) reset(event.key);
+    if(event.key == 'Enter' && checkSum == true) {
+        showOffDiv();
+        checkSum = false;
+    }
+    if(event.key == "End" && checkSum == true) showOffDiv();
 });
 
 function countKey(key) {
@@ -71,9 +82,12 @@ function writeKeys() {
         }
     }
     chart();
-    if(absSum > 95 && absSum < 99) beep1();
-    if(absSum == 99) beep2();
-    if(absSum == 100) alert("Summe von 100 erreicht!");
+    if(absSum == 100) {
+        checkSum = true;
+        beep();
+        let text = "Summe von 100 erreicht! Möchtest du fortsetzen? (Enter = Ja | Ende = Nein)";
+        showOnDiv(text);
+    }
 }
 
 function sizeSubmit() {
@@ -93,11 +107,37 @@ function sizeSubmit() {
     }
 }
 
-function beep1(){ 
-    var audio = new Audio("https://audio-previews.elements.envatousercontent.com/files/177328289/preview.mp3"); 
-    audio.play(); 
+function reset(key){
+    if(key == "-") {
+        let text = "Möchtest du die Werte wirklich zurücksetzen? (Enter = Ja | Ende = Nein)";
+        showOnDiv(text);
+        timer = setInterval(function() {
+            showOffDiv();
+            checkReset = false;
+            clearInterval(timer);
+        }, 5000);
+        checkReset = true;
+    }
+    if(key == "Enter") {
+        clearInterval(timer);
+        location.reload();
+    }
+    if(key == "End") {
+        clearInterval(timer);
+        showOffDiv();
+        checkReset = false;
+    }
 }
-function beep2(){ 
-    var audio = new Audio("https://orangefreesounds.com/wp-content/uploads/2023/04/Quick-beep-sound-effect.mp3"); 
-    audio.play(); 
-} 
+
+function beep(){ 
+    document.getElementById("audio").play();
+}
+
+function showOnDiv(text) {
+    document.getElementById("showText").innerHTML = text;
+    document.getElementById("showInfo").style.display = "block";
+}
+
+function showOffDiv() {
+    document.getElementById("showInfo").style.display = "none";
+}

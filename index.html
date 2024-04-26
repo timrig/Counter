@@ -13,12 +13,18 @@
         <title>Counter</title>
     </head>
     <body>
-        <br>
+        <audio id="audio" src="https://orangefreesounds.com/wp-content/uploads/2023/04/Quick-beep-sound-effect.mp3" preload="auto"></audio>
+        <div class="showDiv">
+            <div id="showInfo" class="showInfo">
+                <b><span id="showText"></span></b>
+            </div>
+        </div>
         <div id="size">
             <form id="sizeForm">
                 Anzahl ben&ouml;tigter Tasten: <input type="number" id="sizeTbl" class="input">
             </form>
-            <button type="submit" id="sizeBtn" class="button" onclick="sizeSubmit()">Best&auml;tigen</button>
+            <button type="submit" id="sizeBtn" class="button" onclick="sizeSubmit()">Best&auml;tigen</button><br><br>
+            <button type="submit" id="resetBtn" class="button" onclick="reset('-')">Reset (&uuml;ber Taste Minus)</button>
         </div>
         <br><br>
         <div id="counter">
